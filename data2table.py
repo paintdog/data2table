@@ -59,6 +59,34 @@ def data2table_gh(data):
         print()
 
 
+def data2table_grid(data):
+    spaltenbreiten = {}
+    spalten = range(len(data[0]))
+    spaltenbreiten = {spalte : 0 for spalte in spalten}
+    for spalte in spalten:
+        spaltenbreiten[spalte] = max([len(line[spalte]) for line in data])
+    for i, line in enumerate(data):
+        if i == 1:
+            char = "="
+        else:
+            char = "-"
+        # obere Begrenzung
+        for spalte in spalten:
+            print("+", end="")
+            print(char * (spaltenbreiten[spalte] + 2), end="")
+        print("+")
+        # Werte
+        for spalte in spalten:
+            print("| ", end="")
+            print("{}".format(data[i][spalte]), end=" " * (spaltenbreiten[spalte] + 1 - len(data[i][spalte])))
+        print("|")
+    # untere Begrenzung
+    for spalte in spalten:
+        print("+", end="")
+        print("-" * (spaltenbreiten[spalte] + 2), end="")
+    print("+")
+    
+    
 def data2table_html(data):
     # bringt einen Datenbestand
     # in Form und printed es in
